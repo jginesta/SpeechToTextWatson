@@ -7,17 +7,23 @@ var path = require('path');
 
 exports.getYouTubeAudio = function(videoId){  
     return new Promise(function(resolve, reject){
- 
+    
      var url =  "http://www.youtube.com/watch?v=" + videoId;
     youtube_dl = spawn('youtube-dl', ['--extract-audio', '--audio-format', 'mp3', '-o', 'file.%(ext)s', "http://www.youtube.com/watch?v=" + videoId]);
 
     youtubedl.getInfo(url,  function(err, info) {
     if (err) throw err;
+      var id=info.id;
+      var title= info.title;
+      var thumbnail= info.thumbnail;
+      var filename=info._filename;
+      var description= info.description;
 
-    console.log('id:', info.id);
-    console.log('title:', info.title);
-    console.log('thumbnail:', info.thumbnail);
-    console.log('filename:', info._filename);
+     exports.id = id;
+     exports.title= title;
+     exports.thumbnail= thumbnail;
+     exports.filename=filename;
+     exports.description=description;
     });
 
     youtube_dl.stdout.on('data', function(data){
